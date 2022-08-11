@@ -12,6 +12,23 @@
 
 <body>
     <canvas id="canvas"></canvas>
+
+    <p>Render Quality</p>
+    <input type="range" min="5" max="1000" step="5" list="steplist" id="render-quality">
+    <p>Render Speed</p>
+    <input type="range" min="1.5" max="5" step="0.5" list="steplist" id="render-speed">
+    <br />
+    <p>The Mandelbrot Set Boundaries</p><br>
+    <form id="render-boundaries">
+        <label for="minreal">Minimum Real Value (left boundary)</label><br>
+        <input type="text" id="minreal" name="minreal" value="-2"><br><br>
+        <label for="maxreal">Maximum Real Value (right boundary)</label><br>
+        <input type="text" id="maxreal" name="maxreal" value="1"><br><br>
+        <label for="minimaginary">Minimum Imaginary Value (bottom boundary)</label><br>
+        <input type="text" id="minimaginary" name="minimaginary" value="-1"><br><br>
+        <label for="maximaginay">Maximum Imaginary Value (top boundary)</label><br>
+        <input type="text" id="maximaginary" name="maximaginay" value="1"><br><br>
+    </form>
     <button type="button" id="render-mandelbrot">Generate Mandelbrot</button>
     <script src="script.js"></script>
 </body>
