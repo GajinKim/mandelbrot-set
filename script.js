@@ -70,6 +70,18 @@ function draw(maxIterations) {
 window.addEventListener('resize', resizeCanvas, false);
 resizeCanvas();
 
+document.getElementById("render-mandelbrot").onclick = function () {
+    let iterations = [5, 10, 15, 25, 50, 75, 100, 150, 200, 500];
+    let i = 0;
+    let interval = setInterval(function () {
+        draw(iterations[i]);
+        i++;
+        if (i >= iterations.length) {
+            clearInterval(interval);
+        }
+    }, 1000);
+}
+
 function resizeCanvas() {
     // adjust boundaries based on width:height ratio
     let screenRatio = window.innerHeight / window.innerWidth;
@@ -86,6 +98,4 @@ function resizeCanvas() {
     // cuts the resolution in third because computer performance sucks
     canvas.width /= 3;
     canvas.height /= 3;
-
-    draw(100);
 }
