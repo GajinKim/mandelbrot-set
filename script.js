@@ -2,7 +2,7 @@ let canvas = document.getElementById('canvas');
 let context = canvas.getContext('2d');
 let iterations = [];
 
-let pixelDensity = Number(document.getElementById("render-quality").value);
+let targetIterations = Number(document.getElementById("target-iterations").value);
 let renderSpeed = Number(document.getElementById("render-speed").value);
 
 function ComplexNumber(real, imaginary) {
@@ -23,6 +23,7 @@ ComplexNumber.prototype.absolute = function () {
 }
 
 function belongsInSet(real, imaginary, iterations) {
+    // performs the following equation for the specified number of iterations to determine if the point is within the mandelbrot set
     // z_{n+1} = z_{n}^{2} + c 
     let z = new ComplexNumber(0, 0);
     let c = new ComplexNumber(real, imaginary);
@@ -36,12 +37,13 @@ function belongsInSet(real, imaginary, iterations) {
     return i;
 }
 
-function pixelCalculator(x, y, color) {
+function fillPixel(x, y, color) {
     context.fillStyle = color;
     context.fillRect(x, y, 1, 1);
 }
 
 function drawIntervalFrame(maxIterations) {
+    console.log('hi');
     // real axis boundaries [-2, 1]
     let minReal = Number(document.getElementById('minreal').value);
     let maxReal = Number(document.getElementById('maxreal').value);
@@ -57,18 +59,17 @@ function drawIntervalFrame(maxIterations) {
 
     while (real < maxReal) {
         let imaginary = minImaginary;
-        console.log('boundaries', minReal, maxReal, minImaginary, maxImaginary);
         while (imaginary < maxImaginary) {
             let pointBelongs = belongsInSet(real, imaginary, maxIterations);
             let x = (real - minReal) / realStep;
             let y = (imaginary - minImaginary) / imaginaryStep;
 
             if (pointBelongs == maxIterations) {
-                pixelCalculator(x, y, 'black');
+                fillPixel(x, y, 'black');
             } else {
                 let colorHue = parseInt(30 + Math.round(120 * pointBelongs * 1.0 / maxIterations));
                 var color = `hsl(${colorHue}, 100%, 50%`;
-                pixelCalculator(x, y, color);
+                fillPixel(x, y, color);
             }
             imaginary += imaginaryStep;
         }
@@ -87,10 +88,12 @@ document.getElementById("render-mandelbrot").onclick = function () {
         if (i >= iterations.length) {
             clearInterval(interval);
         }
-    }, 1000);
+    }, 1000); // renders one frame per second
+
+    console.log('Finished Rendering Mandelbrot Set');
 }
 
-document.getElementById("render-quality").onchange = function () {
+document.getElementById("target-iterations").onchange = function () {
     updateIterations();
 }
 
@@ -107,32 +110,30 @@ function updateCanvasSize() {
     }
 
     // cuts the resolution by half because computer performance sucks
-    canvas.width /= 2;
-    canvas.height /= 2;
+    canvas.width /= 4;
+    canvas.height /= 4;
 }
 
 async function updateIterations() {
-    await updatePixelDensity();
+    await updateTargetIterations();
     await updateRenderSpeed();
     
-    console.log('pixel density', pixelDensity);
+    console.log('target iterations', targetIterations);
     console.log('render speed', renderSpeed);
     
     iterations.length = 0;
-    while (pixelDensity > 5) {
-        await iterations.unshift(parseInt(pixelDensity));
-        pixelDensity /= renderSpeed;
+    while (targetIterations > 5) {
+        await iterations.unshift(parseInt(targetIterations));
+        targetIterations /= renderSpeed;
     }
     
     if (iterations.length == 0) {
-        iterations.push(parseInt(pixelDensity));
+        iterations.push(parseInt(targetIterations));
     }
-
-    console.log('iterations', iterations);
 }
 
-function updatePixelDensity() {
-    pixelDensity = Number(document.getElementById("render-quality").value);
+function updateTargetIterations() {
+    targetIterations = Number(document.getElementById("target-iterations").value);
 }
 
 function updateRenderSpeed() {
