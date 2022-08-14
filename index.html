@@ -16,13 +16,14 @@
 
     <div id="modal">
         <form>
+            <p><mark>Mandelbrot Set Render Settings</mark></p>
             <p><mark>Render Depth (Iterations)</mark></p>
             <input type="range" min="5" max="1000" step="5" list="steplist" id="target-iterations">
             <p><mark>Render Speed</mark></p>
             <input type="range" min="1.1" max="5" step="0.1" list="steplist" id="render-speed">
             <br />
 
-            <p><mark>The Mandelbrot Set Boundaries</mark></p><br>
+            <p><mark>Mandelbrot Set Boundaries</mark></p>
             <div class="form-row d-flex" >
                 <div class="form-group col-md-3">
                     <label for="maximaginary"><mark>X-Origin</mark></label>
@@ -42,7 +43,8 @@
         </form>
     </div>
 
-    <canvas id="mandelbrot"></canvas>
+    <canvas id="mandelbrot-canvas"></canvas>
+    <canvas id="grid-canvas"></canvas>
 
     <script src="script.js"></script>
 

@@ -8,7 +8,7 @@ html,body {
     width: 100vw; */
 }
 
-#mandelbrot {
+#mandelbrot-canvas {
     /* center horizontally and vertically */
     margin: 0;
     position: absolute;
@@ -23,7 +23,6 @@ html,body {
 }
 
 #modal {
-    
     background-color: rgba(21, 99, 216, 0.5);
     margin: 1%;
     width: 30%;

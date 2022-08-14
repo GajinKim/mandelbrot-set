@@ -1,5 +1,9 @@
-let canvas = document.getElementById('mandelbrot');
+let canvas = document.getElementById('mandelbrot-canvas');
 let context = canvas.getContext('2d');
+
+// let gridCanvas = document.getElementById('grid-canvas');
+// let gridContext = document.getContext('2d');
+
 let iterations = [];
 
 let targetIterations = Number(document.getElementById("target-iterations").value);
@@ -54,19 +58,19 @@ function drawIntervalFrame(maxIterations) {
     let maxReal = xOrigin + (defaultWidth / 2) * (1 / zoom);
     let minImaginary = yOrigin - (defaultHeight / 2) * (1 / zoom);
     let maxImaginary = yOrigin + (defaultHeight / 2) * (1 / zoom);
-    console.log("Boundaries: ", minReal, maxReal, minImaginary, maxImaginary);
+
+    console.log(" X Boundary: [", minReal, ",", maxReal, "]\n", "Y Boundary: [", minImaginary, ",", maxImaginary, "]");
 
     let realStep = Number((maxReal - minReal) / canvas.width);
     let imaginaryStep = Number((maxImaginary - minImaginary) / canvas.height);
 
     let real = minReal;
-
     while (real < maxReal) {
         let imaginary = minImaginary;
         while (imaginary < maxImaginary) {
             let pointBelongs = belongsInSet(real, imaginary, maxIterations);
             let x = (real - minReal) / realStep;
-            let y = (imaginary - minImaginary) / imaginaryStep;
+            let y = canvas.height - (imaginary - minImaginary) / imaginaryStep;
 
             if (pointBelongs == maxIterations) {
                 fillPixel(x, y, 'black');
@@ -141,3 +145,24 @@ function updateTargetIterations() {
 function updateRenderSpeed() {
     renderSpeed = Number(document.getElementById("render-speed").value);
 }
+
+/////
+
+// Padding
+var p = 0;
+
+function drawBoard() {
+    // updateCanvasSize();
+    for (var x = 0; x <= canvas.width; x += 40) {
+        context.moveTo(0.5 + x + p, p);
+        context.lineTo(0.5 + x + p, canvas.height + p);
+    }
+
+    for (var x = 0; x <= canvas.height; x += 40) {
+        context.moveTo(p, 0.5 + x + p);
+        context.lineTo(canvas.width + p, 0.5 + x + p);
+    }
+    context.strokeStyle = "black";
+    context.stroke();
+}
+// drawBoard(); //todo testing
