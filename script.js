@@ -1,4 +1,4 @@
-let canvas = document.getElementById('canvas');
+let canvas = document.getElementById('mandelbrot');
 let context = canvas.getContext('2d');
 let iterations = [];
 
@@ -43,14 +43,31 @@ function fillPixel(x, y, color) {
 }
 
 function drawIntervalFrame(maxIterations) {
-    console.log('hi');
-    // real axis boundaries [-2, 1]
-    let minReal = Number(document.getElementById('minreal').value);
-    let maxReal = Number(document.getElementById('maxreal').value);
+    // console.log('hi');
+    // // real axis boundaries [-2, 1]
+    // let minReal = Number(document.getElementById('minreal').value);
+    // let maxReal = Number(document.getElementById('maxreal').value);
 
-    // imaginary axis boundaries [-1, 1]
-    let minImaginary = Number(document.getElementById('minimaginary').value);
-    let maxImaginary = Number(document.getElementById('maximaginary').value);
+    // // imaginary axis boundaries [-1, 1]
+    // let minImaginary = Number(document.getElementById('minimaginary').value);
+    // let maxImaginary = Number(document.getElementById('maximaginary').value);
+
+    // given a center coordinate and zoom amount, how do we determine the boundaries?
+
+    let defaultWidth = 3; // real axis boundaries [-2, 1]
+    let defaultHeight = 2; // imaginary axis boundaries [-1, 1]
+    // if zoom is 1x and center coodinate is (-0.75, 0) it should be the normal render
+
+    let xOrigin = Number(document.getElementById('render-origin-x-coord').value);
+    let yOrigin = Number(document.getElementById('render-origin-y-coord').value);
+    let zoom = Number(document.getElementById('render-zoom').value);
+
+    let minReal = xOrigin - (defaultWidth / 2) * (1 / zoom);
+    let maxReal = xOrigin + (defaultWidth / 2) * (1 / zoom);
+    let minImaginary = yOrigin - (defaultHeight / 2) * (1 / zoom);
+    let maxImaginary = yOrigin + (defaultHeight / 2) * (1 / zoom);
+    console.log("Boundaries: ", minReal, maxReal, minImaginary, maxImaginary);
+
 
     let realStep = Number((maxReal - minReal) / canvas.width);
     let imaginaryStep = Number((maxImaginary - minImaginary) / canvas.height);
@@ -99,9 +116,9 @@ document.getElementById("target-iterations").onchange = function () {
 
 // updates canvas size based on available window space
 function updateCanvasSize() {
-    // adjust boundaries based on width:height ratio
-    let screenRatio = window.innerHeight / window.innerWidth;
-    if (screenRatio < 1.5) {
+    // mandelbrot set is 2:3 (height:width)
+    let screenHeightToWidthRatio = window.innerHeight / window.innerWidth;
+    if (screenHeightToWidthRatio < (2 / 3)) {
         canvas.height = window.innerHeight;
         canvas.width = window.innerHeight * (3 / 2);
     } else {
@@ -117,16 +134,16 @@ function updateCanvasSize() {
 async function updateIterations() {
     await updateTargetIterations();
     await updateRenderSpeed();
-    
+
     console.log('target iterations', targetIterations);
     console.log('render speed', renderSpeed);
-    
+
     iterations.length = 0;
     while (targetIterations > 5) {
         await iterations.unshift(parseInt(targetIterations));
         targetIterations /= renderSpeed;
     }
-    
+
     if (iterations.length == 0) {
         iterations.push(parseInt(targetIterations));
     }

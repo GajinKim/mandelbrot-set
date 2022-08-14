@@ -6,31 +6,55 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css" />
     <title>Mandelbrot Set Application</title>
 </head>
 
 <body>
-    <canvas id="canvas"></canvas>
 
-    <p>Render Depth (Iterations)</p>
-    <input type="range" min="5" max="1000" step="5" list="steplist" id="target-iterations">
-    <p>Render Speed</p>
-    <input type="range" min="1.05" max="5" step="0.05" list="steplist" id="render-speed">
-    <br />
-    <p>The Mandelbrot Set Boundaries</p><br>
-    <form id="render-boundaries">
-        <label for="minreal">Minimum Real Value (left boundary)</label><br>
-        <input type="text" id="minreal" name="minreal" value="-2"><br><br>
-        <label for="maxreal">Maximum Real Value (right boundary)</label><br>
-        <input type="text" id="maxreal" name="maxreal" value="1"><br><br>
-        <label for="minimaginary">Minimum Imaginary Value (bottom boundary)</label><br>
-        <input type="text" id="minimaginary" name="minimaginary" value="-1"><br><br>
-        <label for="maximaginay">Maximum Imaginary Value (top boundary)</label><br>
-        <input type="text" id="maximaginary" name="maximaginay" value="1"><br><br>
-    </form>
-    <button type="button" id="render-mandelbrot">Generate Mandelbrot</button>
+    <div id="modal">
+        <form>
+            <p>Render Depth (Iterations)</p>
+            <input type="range" min="5" max="1000" step="5" list="steplist" id="target-iterations">
+            <p>Render Speed</p>
+            <input type="range" min="1.05" max="5" step="0.05" list="steplist" id="render-speed">
+            <br />
+
+            <p>The Mandelbrot Set Boundaries</p><br>
+            <div class="form-row d-flex" >
+                <div class="form-group col-md-3">
+                    <label for="maximaginary">X Coordinate</label>
+                    <input type="text" class="form-control" id="render-origin-x-coord" value="-0.5">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="maximaginary">Y Coordinate</label>
+                    <input type="text" class="form-control" id="render-origin-y-coord" value="0">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="maximaginary">Zoom</label>
+                    <input type="text" class="form-control" id="render-zoom" value="1">
+                </div>
+            </div>
+            <br>
+            <button class="btn btn-primary" type="button" id="render-mandelbrot">General Mandelbrot</button>
+        </form>
+    </div>
+
+    <canvas id="mandelbrot"></canvas>
+
     <script src="script.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
