@@ -1,18 +1,22 @@
-let canvas = document.getElementById('mandelbrot-canvas');
-let context = canvas.getContext('2d');
+const canvas = document.getElementById('mandelbrot-canvas');
+const context = canvas.getContext('2d');
 
-// let gridCanvas = document.getElementById('grid-canvas');
-// let gridContext = document.getContext('2d');
+// if zoom is 1x and center coodinate is (-0.75, 0) it should be the normal render
+const defaultWidth = 3; // real axis boundaries [-2, 1]
+const defaultHeight = 2; // imaginary axis boundaries [-1, 1]
 
 let iterations = [];
 
 let targetIterations = Number(document.getElementById("target-iterations").value);
 let renderSpeed = Number(document.getElementById("render-speed").value);
+let xOrigin = Number(document.getElementById('origin-x-coord').value);
+let yOrigin = Number(document.getElementById('origin-y-coord').value);
+let zoom = Number(document.getElementById('zoom').value);
 
 function ComplexNumber(real, imaginary) {
     this.real = real;
     this.imaginary = imaginary;
-}
+};
 
 ComplexNumber.prototype.add = function (other) {
     return new ComplexNumber(this.real + other.real, this.imaginary + other.imaginary);
@@ -20,11 +24,87 @@ ComplexNumber.prototype.add = function (other) {
 
 ComplexNumber.prototype.multiply = function (other) {
     return new ComplexNumber(this.real * other.real - this.imaginary * other.imaginary, this.real * other.imaginary + this.imaginary * other.real);
-}
+};
 
 ComplexNumber.prototype.absolute = function () {
     return Math.sqrt(this.real * this.real + this.imaginary * this.imaginary);
-}
+};
+
+document.getElementById("render-mandelbrot").onclick = async function () {
+    await updateCanvasSize();
+    await updateRenderSettings();
+    await updateIterations(); // updateIterations relies on all render variables being up to date
+
+    let i = 0;
+    let interval = await setInterval(function () {
+        drawIntervalFrame(xOrigin, yOrigin, zoom, iterations[i]); // drawIntervalFrame relies on all render variables plus canvas dimensions being up to date
+        i++;
+        if (i >= iterations.length) {
+            clearInterval(interval);
+        }
+    }, 1000); // renders one frame per second
+};
+
+// ARROW & ZOOM BUTTON FUNCTIONALITY
+document.getElementById("move-left-10%").onclick = async function () {
+    await updateZoom();
+    document.getElementById("origin-x-coord").value = (Number(document.getElementById("origin-x-coord").value) - 0.10 * (defaultWidth) * (1 / zoom)).toFixed(zoom);
+};
+
+document.getElementById("move-left-25%").onclick = async function () {
+    await updateZoom();
+    document.getElementById("origin-x-coord").value = (Number(document.getElementById("origin-x-coord").value) - 0.25 * (defaultWidth) * (1 / zoom)).toFixed(zoom);
+};
+
+document.getElementById("move-right-10%").onclick = async function () {
+    await updateZoom();
+    document.getElementById("origin-x-coord").value = (Number(document.getElementById("origin-x-coord").value) + 0.10 * (defaultWidth) * (1 / zoom)).toFixed(zoom);
+};
+
+document.getElementById("move-right-25%").onclick = async function () {
+    await updateZoom();
+    document.getElementById("origin-x-coord").value = (Number(document.getElementById("origin-x-coord").value) + 0.25 * (defaultWidth) * (1 / zoom)).toFixed(zoom);
+};
+
+document.getElementById("move-down-10%").onclick = async function () {
+    await updateZoom();
+    document.getElementById("origin-y-coord").value = (Number(document.getElementById("origin-y-coord").value) - 0.10 * (defaultHeight) * (1 / zoom)).toPrecision(zoom);
+};
+
+document.getElementById("move-down-25%").onclick = async function () {
+    await updateZoom();
+    document.getElementById("origin-y-coord").value = (Number(document.getElementById("origin-y-coord").value) - 0.25 * (defaultHeight) * (1 / zoom)).toPrecision(zoom);
+};
+
+document.getElementById("move-up-10%").onclick = async function () {
+    await updateZoom();
+    document.getElementById("origin-y-coord").value = (Number(document.getElementById("origin-y-coord").value) + 0.10 * (defaultHeight) * (1 / zoom)).toPrecision(zoom);
+};
+
+document.getElementById("move-up-25%").onclick = async function () {
+    await updateZoom();
+    document.getElementById("origin-y-coord").value = (Number(document.getElementById("origin-y-coord").value) + 0.25 * (defaultHeight) * (1 / zoom)).toPrecision(zoom);
+};
+
+document.getElementById("zoom-out-5x").onclick = async function () {
+    await updateZoom();
+    document.getElementById("zoom").value = Number(document.getElementById("zoom").value) / 5;
+};
+
+document.getElementById("zoom-out-2x").onclick = async function () {
+    await updateZoom();
+    document.getElementById("zoom").value = Number(document.getElementById("zoom").value) / 2;
+};
+
+document.getElementById("zoom-in-2x").onclick = async function () {
+    await updateZoom();
+    document.getElementById("zoom").value = Number(document.getElementById("zoom").value) * 2;
+};
+
+document.getElementById("zoom-in-5x").onclick = async function () {
+    await updateZoom();
+    document.getElementById("zoom").value = Number(document.getElementById("zoom").value) * 5;
+};
 
 function belongsInSet(real, imaginary, iterations) {
     // performs the following equation for the specified number of iterations to determine if the point is within the mandelbrot set
@@ -38,22 +118,9 @@ function belongsInSet(real, imaginary, iterations) {
         i++;
     }
     return i;
-}
+};
 
-function fillPixel(x, y, color) {
-    context.fillStyle = color;
-    context.fillRect(x, y, 1, 1);
-}
-
-function drawIntervalFrame(maxIterations) {
-    // if zoom is 1x and center coodinate is (-0.75, 0) it should be the normal render
-    let defaultWidth = 3; // real axis boundaries [-2, 1]
-    let defaultHeight = 2; // imaginary axis boundaries [-1, 1]
-
-    let xOrigin = Number(document.getElementById('render-origin-x-coord').value);
-    let yOrigin = Number(document.getElementById('render-origin-y-coord').value);
-    let zoom = Number(document.getElementById('render-zoom').value);
-
+function drawIntervalFrame(xOrigin, yOrigin, zoom, maxIterations) {
     let minReal = xOrigin - (defaultWidth / 2) * (1 / zoom);
     let maxReal = xOrigin + (defaultWidth / 2) * (1 / zoom);
     let minImaginary = yOrigin - (defaultHeight / 2) * (1 / zoom);
@@ -75,7 +142,13 @@ function drawIntervalFrame(maxIterations) {
             if (pointBelongs == maxIterations) {
                 fillPixel(x, y, 'black');
             } else {
-                let colorHue = parseInt(30 + Math.round(120 * pointBelongs * 1.0 / maxIterations));
+                // 360 = max hue value
+                // maxHue + minHue <= 360
+                // the closer the max and min hues are, the less color variation there will be
+
+                let maxHue = 360;
+                let minHue = 360;
+                let colorHue = parseInt(20 + Math.round(360 * pointBelongs / maxIterations));
                 var color = `hsl(${colorHue}, 100%, 50%`;
                 fillPixel(x, y, color);
             }
@@ -83,28 +156,52 @@ function drawIntervalFrame(maxIterations) {
         }
         real += realStep;
     }
-}
+};
 
-document.getElementById("render-mandelbrot").onclick = async function () {
-    updateCanvasSize();
-    updateIterations();
+// HELPER FUNCTIONS
+async function updateRenderSettings() {
+    await updateTargetIterations();
+    await updateRenderSpeed();
+    await updateOrigin();
+    await updateZoom();
+};
 
-    let i = 0;
-    let interval = await setInterval(function () {
-        drawIntervalFrame(iterations[i]);
-        i++;
-        if (i >= iterations.length) {
-            clearInterval(interval);
-        }
-    }, 1000); // renders one frame per second
-}
+// Updates iterations array based on target iterations and render speed
+async function updateIterations() {
+    console.log('Target Iterations', targetIterations);
+    console.log('Render Speed', renderSpeed);
 
-document.getElementById("target-iterations").onchange = function () {
-    updateIterations();
-}
+    iterations.length = 0;
+    while (targetIterations > 5) {
+        await iterations.unshift(parseInt(targetIterations));
+        targetIterations /= renderSpeed;
+    }
 
-// updates canvas size based on available window space
+    if (iterations.length == 0) {
+        iterations.push(parseInt(targetIterations));
+    }
+};
+
+// Render Depth
+function updateTargetIterations() {
+    targetIterations = Number(document.getElementById("target-iterations").value);
+};
+
+function updateRenderSpeed() {
+    renderSpeed = Number(document.getElementById("render-speed").value);
+};
+
+function updateOrigin() {
+    xOrigin = Number(document.getElementById('origin-x-coord').value);
+    yOrigin = Number(document.getElementById('origin-y-coord').value);
+};
+
+function updateZoom() {
+    zoom = Number(document.getElementById('zoom').value);
+};
+
 function updateCanvasSize() {
+    // updates canvas size based on available window space
     // mandelbrot set is 2:3 (height:width)
     let screenHeightToWidthRatio = window.innerHeight / window.innerWidth;
     if (screenHeightToWidthRatio < (2 / 3)) {
@@ -118,35 +215,14 @@ function updateCanvasSize() {
     // cuts the resolution by half because computer performance sucks
     // canvas.width /= 2;
     // canvas.height /= 2;
-}
+};
 
-async function updateIterations() {
-    await updateTargetIterations();
-    await updateRenderSpeed();
+function fillPixel(x, y, color) {
+    context.fillStyle = color;
+    context.fillRect(x, y, 1, 1);
+};
 
-    console.log('target iterations', targetIterations);
-    console.log('render speed', renderSpeed);
-
-    iterations.length = 0;
-    while (targetIterations > 5) {
-        await iterations.unshift(parseInt(targetIterations));
-        targetIterations /= renderSpeed;
-    }
-
-    if (iterations.length == 0) {
-        iterations.push(parseInt(targetIterations));
-    }
-}
-
-function updateTargetIterations() {
-    targetIterations = Number(document.getElementById("target-iterations").value);
-}
-
-function updateRenderSpeed() {
-    renderSpeed = Number(document.getElementById("render-speed").value);
-}
-
-/////
+///// grid stuff
 
 // Padding
 var p = 0;
@@ -163,6 +239,6 @@ function drawBoard() {
         context.lineTo(canvas.width + p, 0.5 + x + p);
     }
     context.strokeStyle = "black";
-    context.stroke();
+    ; context.stroke();
 }
 // drawBoard(); //todo testing
