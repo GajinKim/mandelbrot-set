@@ -33,7 +33,6 @@ function belongsInSet(real, imaginary, iterations) {
         z = z.multiply(z).add(c);
         i++;
     }
-
     return i;
 }
 
@@ -43,20 +42,9 @@ function fillPixel(x, y, color) {
 }
 
 function drawIntervalFrame(maxIterations) {
-    // console.log('hi');
-    // // real axis boundaries [-2, 1]
-    // let minReal = Number(document.getElementById('minreal').value);
-    // let maxReal = Number(document.getElementById('maxreal').value);
-
-    // // imaginary axis boundaries [-1, 1]
-    // let minImaginary = Number(document.getElementById('minimaginary').value);
-    // let maxImaginary = Number(document.getElementById('maximaginary').value);
-
-    // given a center coordinate and zoom amount, how do we determine the boundaries?
-
+    // if zoom is 1x and center coodinate is (-0.75, 0) it should be the normal render
     let defaultWidth = 3; // real axis boundaries [-2, 1]
     let defaultHeight = 2; // imaginary axis boundaries [-1, 1]
-    // if zoom is 1x and center coodinate is (-0.75, 0) it should be the normal render
 
     let xOrigin = Number(document.getElementById('render-origin-x-coord').value);
     let yOrigin = Number(document.getElementById('render-origin-y-coord').value);
@@ -67,7 +55,6 @@ function drawIntervalFrame(maxIterations) {
     let minImaginary = yOrigin - (defaultHeight / 2) * (1 / zoom);
     let maxImaginary = yOrigin + (defaultHeight / 2) * (1 / zoom);
     console.log("Boundaries: ", minReal, maxReal, minImaginary, maxImaginary);
-
 
     let realStep = Number((maxReal - minReal) / canvas.width);
     let imaginaryStep = Number((maxImaginary - minImaginary) / canvas.height);
@@ -94,20 +81,18 @@ function drawIntervalFrame(maxIterations) {
     }
 }
 
-document.getElementById("render-mandelbrot").onclick = function () {
+document.getElementById("render-mandelbrot").onclick = async function () {
     updateCanvasSize();
     updateIterations();
 
     let i = 0;
-    let interval = setInterval(function () {
+    let interval = await setInterval(function () {
         drawIntervalFrame(iterations[i]);
         i++;
         if (i >= iterations.length) {
             clearInterval(interval);
         }
     }, 1000); // renders one frame per second
-
-    console.log('Finished Rendering Mandelbrot Set');
 }
 
 document.getElementById("target-iterations").onchange = function () {
@@ -127,8 +112,8 @@ function updateCanvasSize() {
     }
 
     // cuts the resolution by half because computer performance sucks
-    canvas.width /= 4;
-    canvas.height /= 4;
+    // canvas.width /= 2;
+    // canvas.height /= 2;
 }
 
 async function updateIterations() {

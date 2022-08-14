@@ -23,7 +23,8 @@ html,body {
 }
 
 #modal {
-    background-color: rgba(30,123,55,.3);
+    
+    background-color: rgba(21, 99, 216, 0.5);
     margin: 1%;
     width: 30%;
 }
