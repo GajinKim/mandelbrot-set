@@ -16,125 +16,132 @@
 <body>
     <div id="modal">
         <form id="modal-content">
-            <label class="d-flex justify-content-center">Render Depth (Iterations)</label>
-            <div class="d-flex justify-content-center m-1">
-                <input type="range" min="5" max="1000" step="5" list="steplist" value=100 id="target-iterations">
+
+            <div class="d-flex justify-content-center m-1 pt-1">
+                <button class="btn btn-primary" type="button" id="hide-settings">Settings</button>
+                <button class="btn btn-primary" type="button" id="show-settings" style="display: none">Settings</button>
             </div>
 
-            <label class="d-flex justify-content-center">Render Speed</label>
-            <div class="d-flex justify-content-evenly m-1">
-                <input type="range" min="1.1" max="5.1" step="0.1" list="steplist" value="1.5" id="render-speed">
-            </div>
+            <div id="settings">
+                <label class="d-flex justify-content-center">Render Depth)</label>
+                <div class="d-flex justify-content-center m-1">
+                    <input type="range" min="5" max="1000" step="5" list="steplist" value=100 id="target-iterations">
+                </div>
 
-            <label class="d-flex justify-content-center">X Origin</label>
-            <div class="form-row d-flex justify-content-evenly">
-                <div class="d-none d-lg-flex">
-                    <button class="btn btn-secondary m-1" type="button" id="move-left-25%">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-chevron-double-left" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
-                            <path fill-rule="evenodd"
-                                d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
-                        </svg>
-                    </button>
+                <label class="d-flex justify-content-center">Render Speed</label>
+                <div class="d-flex justify-content-evenly m-1">
+                    <input type="range" min="1.1" max="5.1" step="0.1" list="steplist" value="1.5" id="render-speed">
                 </div>
-                <div class="d-none d-md-flex">
-                    <button class="btn btn-secondary m-1" type="button" id="move-left-10%">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-chevron-double-left" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
-                        </svg>
-                    </button>
+
+                <label class="d-flex justify-content-center">X Origin</label>
+                <div class="form-row d-flex justify-content-evenly">
+                    <div class="d-none d-lg-flex">
+                        <button class="btn btn-secondary m-1" type="button" id="move-left-25%">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+                                <path fill-rule="evenodd"
+                                    d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="d-none d-md-flex">
+                        <button class="btn btn-secondary m-1" type="button" id="move-left-10%">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+                            </svg>
+                        </button>
+                    </div>
+                    <input type="text" class="form-control m-1" id="origin-x-coord" value=-0.5>
+                    <div class="d-none d-md-flex">
+                        <button class="btn btn-secondary m-1" type="button" id="move-right-10%">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="d-none d-lg-flex">
+                        <button class="btn btn-secondary m-1" type="button" id="move-right-25%">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z" />
+                                <path fill-rule="evenodd"
+                                    d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
-                <input type="text" class="form-control m-1" id="origin-x-coord" value=-0.5>
-                <div class="d-none d-md-flex">
-                    <button class="btn btn-secondary m-1" type="button" id="move-right-10%">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-chevron-double-right" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z" />
-                        </svg>
-                    </button>
+
+                <label class="d-flex justify-content-center">Y Origin</label>
+                <div class="form-row d-flex justify-content-evenly">
+                    <div class="d-none d-lg-flex">
+                        <button class="btn btn-secondary m-1" type="button" id="move-down-25%">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-chevron-double-down" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                <path fill-rule="evenodd"
+                                    d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="d-none d-md-flex">
+                        <button class="btn btn-secondary m-1" type="button" id="move-down-10%">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-chevron-double-down" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                            </svg>
+                        </button>
+                    </div>
+                    <input type="text" class="form-control m-1" id="origin-y-coord" value=0>
+                    <div class="d-none d-md-flex">
+                        <button class="btn btn-secondary m-1" type="button" id="move-up-10%">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-chevron-double-up" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708l6-6z" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="d-none d-lg-flex">
+                        <button class="btn btn-secondary m-1" type="button" id="move-up-25%">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-chevron-double-up" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708l6-6z" />
+                                <path fill-rule="evenodd"
+                                    d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
-                <div class="d-none d-lg-flex">
-                    <button class="btn btn-secondary m-1" type="button" id="move-right-25%">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-chevron-double-right" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z" />
-                            <path fill-rule="evenodd"
-                                d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z" />
-                        </svg>
-                    </button>
+
+                <label class="d-flex justify-content-center">Zoom</label>
+                <div class="form-row d-flex d-flex justify-content-evenly">
+                    <div class="d-none d-lg-flex">
+                        <button class="btn btn-secondary m-1" type="button" id="zoom-out-5x">÷5</button>
+                    </div>
+                    <div class="d-none d-md-flex">
+                        <button class="btn btn-secondary m-1" type="button" id="zoom-out-2x">÷2</button>
+                    </div>
+                    <input type="text" class="form-control m-1" id="zoom" value=1>
+                    <div class="d-none d-md-flex">
+                        <button class="btn btn-secondary m-1" type="button" id="zoom-in-2x">x2</button>
+                    </div>
+                    <div class="d-none d-lg-flex">
+                        <button class="btn btn-secondary m-1" type="button" id="zoom-in-5x">x5</button>
+                    </div>
                 </div>
             </div>
-
-            <label class="d-flex justify-content-center">Y Origin</label>
-            <div class="form-row d-flex justify-content-evenly">
-                <div class="d-none d-lg-flex">
-                    <button class="btn btn-secondary m-1" type="button" id="move-down-25%">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-chevron-double-down" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-                            <path fill-rule="evenodd"
-                                d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-                        </svg>
-                    </button>
-                </div>
-                <div class="d-none d-md-flex">
-                    <button class="btn btn-secondary m-1" type="button" id="move-down-10%">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-chevron-double-down" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-                        </svg>
-                    </button>
-                </div>
-                <input type="text" class="form-control m-1" id="origin-y-coord" value=0>
-                <div class="d-none d-md-flex">
-                    <button class="btn btn-secondary m-1" type="button" id="move-up-10%">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-chevron-double-up" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708l6-6z" />
-                        </svg>
-                    </button>
-                </div>
-                <div class="d-none d-lg-flex">
-                    <button class="btn btn-secondary m-1" type="button" id="move-up-25%">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-chevron-double-up" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708l6-6z" />
-                            <path fill-rule="evenodd"
-                                d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-
-            <label class="d-flex justify-content-center">Zoom</label>
-            <div class="form-row d-flex d-flex justify-content-evenly">
-                <div class="d-none d-lg-flex">
-                    <button class="btn btn-secondary m-1" type="button" id="zoom-out-5x">÷5</button>
-                </div>
-                <div class="d-none d-md-flex">
-                    <button class="btn btn-secondary m-1" type="button" id="zoom-out-2x">÷2</button>
-                </div>
-                <input type="text" class="form-control m-1" id="zoom" value=1>
-                <div class="d-none d-md-flex">
-                    <button class="btn btn-secondary m-1" type="button" id="zoom-in-2x">x2</button>
-                </div>
-                <div class="d-none d-lg-flex">
-                    <button class="btn btn-secondary m-1" type="button" id="zoom-in-5x">x5</button>
-                </div>
-            </div>
-
-            <div class="d-flex justify-content-center m-1 pb-2">
-                <button class="btn btn-primary" type="button" id="render-mandelbrot">Generate</button>
+            <div class="d-flex justify-content-center m-1 pb-1">
+                <button class="btn btn-success" type="button" id="render-mandelbrot">Generate</button>
             </div>
         </form>
     </div>

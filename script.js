@@ -106,6 +106,20 @@ document.getElementById("zoom-in-5x").onclick = async function () {
     document.getElementById("zoom").value = Number(document.getElementById("zoom").value) * 5;
 };
 
+// MODAL VISIBILITY
+document.getElementById("hide-settings").onclick = function () {
+    toggleDiv("hide-settings");
+    toggleDiv("show-settings");
+    toggleDiv("settings");
+}
+
+document.getElementById("show-settings").onclick = function () {
+    toggleDiv("show-settings");
+    toggleDiv("hide-settings");
+    toggleDiv("settings");
+}
+
+// RENDER FUNCTIONS
 function belongsInSet(real, imaginary, iterations) {
     // performs the following equation for the specified number of iterations to determine if the point is within the mandelbrot set
     // z_{n+1} = z_{n}^{2} + c 
@@ -221,6 +235,14 @@ function fillPixel(x, y, color) {
     context.fillStyle = color;
     context.fillRect(x, y, 1, 1);
 };
+
+// UI
+// toggleDiv('modal-content');
+function toggleDiv(id) {
+    var div = document.getElementById(id);
+    div.style.display = div.style.display == "none" ? "block" : "none";
+}
+
 
 ///// grid stuff
 

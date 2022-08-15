@@ -53,7 +53,8 @@ button[class="btn btn-secondary m-1"] {
 
 /* input field aggreagte */
 .form-control,
-.btn-primary {
+.btn-primary,
+.btn-success {
     width: 100%;
     min-width: 90px;
 }
