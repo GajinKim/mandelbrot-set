@@ -50,11 +50,13 @@ document.getElementById("render-mandelbrot").onclick = async function () {
 // ARROW & ZOOM BUTTON FUNCTIONALITY
 document.getElementById("move-left-10%").onclick = async function () {
     await updateZoom();
+    await updatePrecision();
     document.getElementById("origin-x-coord").value = (Number(document.getElementById("origin-x-coord").value) - 0.10 * (defaultWidth) * (1 / zoom)).toFixed(zoom);
 };
 
 document.getElementById("move-left-25%").onclick = async function () {
     await updateZoom();
+    await updatePrecision();
     document.getElementById("origin-x-coord").value = (Number(document.getElementById("origin-x-coord").value) - 0.25 * (defaultWidth) * (1 / zoom)).toFixed(zoom);
 };
 
