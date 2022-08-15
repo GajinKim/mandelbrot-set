@@ -13,6 +13,8 @@ let xOrigin = Number(document.getElementById('origin-x-coord').value);
 let yOrigin = Number(document.getElementById('origin-y-coord').value);
 let zoom = Number(document.getElementById('zoom').value);
 
+let precision = 1;
+
 function ComplexNumber(real, imaginary) {
     this.real = real;
     this.imaginary = imaginary;
@@ -58,51 +60,61 @@ document.getElementById("move-left-25%").onclick = async function () {
 
 document.getElementById("move-right-10%").onclick = async function () {
     await updateZoom();
-    document.getElementById("origin-x-coord").value = (Number(document.getElementById("origin-x-coord").value) + 0.10 * (defaultWidth) * (1 / zoom)).toFixed(zoom);
+    await updatePrecision();
+    document.getElementById("origin-x-coord").value = (Number(document.getElementById("origin-x-coord").value) + 0.10 * (defaultWidth) * (1 / zoom)).toFixed(precision);
 };
 
 document.getElementById("move-right-25%").onclick = async function () {
     await updateZoom();
-    document.getElementById("origin-x-coord").value = (Number(document.getElementById("origin-x-coord").value) + 0.25 * (defaultWidth) * (1 / zoom)).toFixed(zoom);
+    await updatePrecision();
+    document.getElementById("origin-x-coord").value = (Number(document.getElementById("origin-x-coord").value) + 0.25 * (defaultWidth) * (1 / zoom)).toFixed(precision);
 };
 
 document.getElementById("move-down-10%").onclick = async function () {
     await updateZoom();
-    document.getElementById("origin-y-coord").value = (Number(document.getElementById("origin-y-coord").value) - 0.10 * (defaultHeight) * (1 / zoom)).toPrecision(zoom);
+    await updatePrecision();
+    document.getElementById("origin-y-coord").value = (Number(document.getElementById("origin-y-coord").value) - 0.10 * (defaultHeight) * (1 / zoom)).toFixed(precision);
 };
 
 document.getElementById("move-down-25%").onclick = async function () {
     await updateZoom();
-    document.getElementById("origin-y-coord").value = (Number(document.getElementById("origin-y-coord").value) - 0.25 * (defaultHeight) * (1 / zoom)).toPrecision(zoom);
+    await updatePrecision();
+    document.getElementById("origin-y-coord").value = (Number(document.getElementById("origin-y-coord").value) - 0.25 * (defaultHeight) * (1 / zoom)).toPrecision(precision);
 };
 
 document.getElementById("move-up-10%").onclick = async function () {
     await updateZoom();
-    document.getElementById("origin-y-coord").value = (Number(document.getElementById("origin-y-coord").value) + 0.10 * (defaultHeight) * (1 / zoom)).toPrecision(zoom);
+    await updatePrecision();
+    document.getElementById("origin-y-coord").value = (Number(document.getElementById("origin-y-coord").value) + 0.10 * (defaultHeight) * (1 / zoom)).toPrecision(precision);
 };
 
 document.getElementById("move-up-25%").onclick = async function () {
     await updateZoom();
-    document.getElementById("origin-y-coord").value = (Number(document.getElementById("origin-y-coord").value) + 0.25 * (defaultHeight) * (1 / zoom)).toPrecision(zoom);
+    await updatePrecision();
+    document.getElementById("origin-y-coord").value = (Number(document.getElementById("origin-y-coord").value) + 0.25 * (defaultHeight) * (1 / zoom)).toPrecision(precision);
 };
 
 document.getElementById("zoom-out-5x").onclick = async function () {
     await updateZoom();
+    await updatePrecision();
     document.getElementById("zoom").value = Number(document.getElementById("zoom").value) / 5;
 };
 
 document.getElementById("zoom-out-2x").onclick = async function () {
     await updateZoom();
+    await updatePrecision();
     document.getElementById("zoom").value = Number(document.getElementById("zoom").value) / 2;
 };
 
 document.getElementById("zoom-in-2x").onclick = async function () {
     await updateZoom();
+    await updatePrecision();
     document.getElementById("zoom").value = Number(document.getElementById("zoom").value) * 2;
 };
 
 document.getElementById("zoom-in-5x").onclick = async function () {
     await updateZoom();
+    await updatePrecision();
     document.getElementById("zoom").value = Number(document.getElementById("zoom").value) * 5;
 };
 
@@ -212,6 +224,16 @@ function updateOrigin() {
 
 function updateZoom() {
     zoom = Number(document.getElementById('zoom').value);
+};
+
+function updatePrecision() {
+    if (zoom < 2) {
+        precision = 1;
+    } else if (zoom > 16) {
+        precision = 8;
+    } else {
+        precision = Math.round(zoom / 2);
+    }
 };
 
 function updateCanvasSize() {
