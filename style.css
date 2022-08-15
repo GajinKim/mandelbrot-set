@@ -42,19 +42,43 @@ body {
     display: inline-block;
 }
 
-#render-speed, #target-iterations {
+#render-speed,
+#target-iterations {
     width: 100% !important;
     min-width: 90px !important;
 }
 
-button[class="btn btn-secondary m-1"] {
+#move-left-25percent,
+#move-left-10percent,
+#move-right-10percent,
+#move-right-25percent,
+#move-down-25percent,
+#move-down-10percent,
+#move-up-10percent,
+#move-up-25percent,
+#zoom-out-5x,
+#zoom-out-2x,
+#zoom-in-2x,
+#zoom-in-5x {
     width: 40px;
+}
+
+button[id="full-screen-on-desktop"],
+button[id="full-screen-off-desktop"],
+button[id="auto-calculate-iteration-depth-on-desktop"],
+button[id="auto-calculate-iteration-depth-off-desktop"] {
+    width: 50%;
+    min-width: 90px;
 }
 
 /* input field aggreagte */
 .form-control,
 .btn-primary,
-.btn-success {
+.btn-success,
+button[id="full-screen-on-mobile"],
+button[id="full-screen-off-mobile"],
+button[id="auto-calculate-iteration-depth-on-mobile"],
+button[id="auto-calculate-iteration-depth-off-mobile"] {
     width: 100%;
     min-width: 90px;
 }

@@ -23,9 +23,113 @@
             </div>
 
             <div id="settings">
-                <label class="d-flex justify-content-center">Render Depth</label>
-                <div class="d-flex justify-content-center m-1">
-                    <input type="range" min="5" max="1000" step="5" list="steplist" value=100 id="target-iterations">
+                <div class="d-none d-lg-flex form-row justify-content-evenly">
+                    <button class="btn btn-success m-1 mt-1" type="button" name="full-screen-on"
+                        id="full-screen-on-desktop" value="true" style="display:none">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-check-square" viewBox="0 0 16 16">
+                            <path
+                                d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                            <path
+                                d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z" />
+                        </svg>
+                        <br>
+                        Full Screen
+                    </button>
+
+                    <button class="btn btn-outline-secondary m-1 mt-1" type="button" name="full-screen-off"
+                        id="full-screen-off-desktop" value="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-square" viewBox="0 0 16 16">
+                            <path
+                                d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                        </svg>
+                        <br>
+                        Full Screen
+                    </button>
+
+                    <button class="btn btn-success m-1 mt-1" type="button" name="auto-calculate-iteration-depth-on"
+                        id="auto-calculate-iteration-depth-on-desktop" value="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-calculator-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm2 .5v2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0-.5.5zm0 4v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zM4.5 9a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM4 12.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zM7.5 6a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM7 9.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zm.5 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM10 6.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zm.5 2.5a.5.5 0 0 0-.5.5v4a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 0-.5-.5h-1z" />
+                        </svg>
+                        <br>
+                        Iteration Depth
+                    </button>
+
+                    <button class="btn btn-outline-secondary m-1 mt-1" type="button"
+                        name="auto-calculate-iteration-depth-off" id="auto-calculate-iteration-depth-off-desktop"
+                        style="display:none" value="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-calculator" viewBox="0 0 16 16">
+                            <path
+                                d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+                            <path
+                                d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
+                        </svg>
+                        <br>
+                        Iteration Depth
+                    </button>
+                </div>
+                <div class="d-lg-none d-flex justify-content-center m-1 pt-1">
+                    <button class="btn btn-success" type="button" name="full-screen-on" id="full-screen-on-mobile"
+                        value="true" style="display:none">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-check-square" viewBox="0 0 16 16">
+                            <path
+                                d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                            <path
+                                d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z" />
+                        </svg>
+                        <br>
+                        FullScreen
+                    </button>
+
+                    <button class="btn btn-outline-secondary" type="button" name="full-screen-off"
+                        id="full-screen-off-mobile" value="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-square" viewBox="0 0 16 16">
+                            <path
+                                d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                        </svg>
+                        <br>
+                        Full Screen
+                    </button>
+                </div>
+                <div class="d-lg-none d-flex justify-content-center m-1 pt-1">
+                    <button class="btn btn-success" type="button" name="auto-calculate-iteration-depth-on"
+                        id="auto-calculate-iteration-depth-on-mobile" value="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-calculator-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm2 .5v2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0-.5.5zm0 4v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zM4.5 9a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM4 12.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zM7.5 6a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM7 9.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zm.5 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM10 6.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zm.5 2.5a.5.5 0 0 0-.5.5v4a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 0-.5-.5h-1z" />
+                        </svg>
+                        <br>
+                        Iteration Depth
+                    </button>
+
+                    <button class="btn btn-outline-secondary" type="button" name="auto-calculate-iteration-depth-off"
+                        id="auto-calculate-iteration-depth-off-mobile" style="display:none" value="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-calculator" viewBox="0 0 16 16">
+                            <path
+                                d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+                            <path
+                                d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
+                        </svg>
+                        <br>
+                        Iteration Depth
+                    </button>
+                </div>
+
+                <div id="target-iterations-title" style="display:none">
+                    <label class="d-flex justify-content-center">Iteration Depth</label>
+                </div>
+                <div class="d-flex justify-content-center m-1 pt-1">
+                    <input type="range" min="5" max="1000" step="5" list="steplist" value=100 id="target-iterations"
+                        style="display:none">
                 </div>
 
                 <label class="d-flex justify-content-center">Render Speed</label>
@@ -36,7 +140,7 @@
                 <label class="d-flex justify-content-center">X Origin</label>
                 <div class="form-row d-flex justify-content-evenly">
                     <div class="d-none d-lg-flex">
-                        <button class="btn btn-secondary m-1" type="button" id="move-left-25%">
+                        <button class="btn btn-secondary m-1" type="button" id="move-left-25percent">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-chevron-double-left" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
@@ -47,7 +151,7 @@
                         </button>
                     </div>
                     <div class="d-none d-md-flex">
-                        <button class="btn btn-secondary m-1" type="button" id="move-left-10%">
+                        <button class="btn btn-secondary m-1" type="button" id="move-left-10percent">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-chevron-double-left" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
@@ -57,7 +161,7 @@
                     </div>
                     <input type="text" class="form-control m-1" id="origin-x-coord" value=-0.5>
                     <div class="d-none d-md-flex">
-                        <button class="btn btn-secondary m-1" type="button" id="move-right-10%">
+                        <button class="btn btn-secondary m-1" type="button" id="move-right-10percent">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-chevron-double-right" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
@@ -66,7 +170,7 @@
                         </button>
                     </div>
                     <div class="d-none d-lg-flex">
-                        <button class="btn btn-secondary m-1" type="button" id="move-right-25%">
+                        <button class="btn btn-secondary m-1" type="button" id="move-right-25percent">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-chevron-double-right" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
@@ -81,7 +185,7 @@
                 <label class="d-flex justify-content-center">Y Origin</label>
                 <div class="form-row d-flex justify-content-evenly">
                     <div class="d-none d-lg-flex">
-                        <button class="btn btn-secondary m-1" type="button" id="move-down-25%">
+                        <button class="btn btn-secondary m-1" type="button" id="move-down-25percent">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-chevron-double-down" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
@@ -92,7 +196,7 @@
                         </button>
                     </div>
                     <div class="d-none d-md-flex">
-                        <button class="btn btn-secondary m-1" type="button" id="move-down-10%">
+                        <button class="btn btn-secondary m-1" type="button" id="move-down-10percent">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-chevron-double-down" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
@@ -102,7 +206,7 @@
                     </div>
                     <input type="text" class="form-control m-1" id="origin-y-coord" value=0>
                     <div class="d-none d-md-flex">
-                        <button class="btn btn-secondary m-1" type="button" id="move-up-10%">
+                        <button class="btn btn-secondary m-1" type="button" id="move-up-10percent">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-chevron-double-up" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
@@ -111,7 +215,7 @@
                         </button>
                     </div>
                     <div class="d-none d-lg-flex">
-                        <button class="btn btn-secondary m-1" type="button" id="move-up-25%">
+                        <button class="btn btn-secondary m-1" type="button" id="move-up-25percent">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-chevron-double-up" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
@@ -140,6 +244,7 @@
                     </div>
                 </div>
             </div>
+            
             <div class="d-flex justify-content-center m-1 pb-1">
                 <button class="btn btn-success" type="button" id="render-mandelbrot">Generate</button>
             </div>

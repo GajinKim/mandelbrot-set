@@ -7,11 +7,14 @@ const defaultHeight = 2; // imaginary axis boundaries [-1, 1]
 
 let iterations = [];
 
-let targetIterations = Number(document.getElementById("target-iterations").value);
+let iterationDepth = Number(document.getElementById("target-iterations").value);
 let renderSpeed = Number(document.getElementById("render-speed").value);
 let xOrigin = Number(document.getElementById('origin-x-coord').value);
 let yOrigin = Number(document.getElementById('origin-y-coord').value);
 let zoom = Number(document.getElementById('zoom').value);
+
+let fullScreen = false;
+let autoCalculateMaxIterations = true;
 
 let precision = 1;
 
@@ -48,77 +51,75 @@ document.getElementById("render-mandelbrot").onclick = async function () {
 };
 
 // ARROW & ZOOM BUTTON FUNCTIONALITY
-document.getElementById("move-left-10%").onclick = async function () {
+document.getElementById("move-left-10percent").onclick = async function () {
     await updateZoom();
     await updatePrecision();
     document.getElementById("origin-x-coord").value = (Number(document.getElementById("origin-x-coord").value) - 0.10 * (defaultWidth) * (1 / zoom)).toFixed(precision);
 };
 
-document.getElementById("move-left-25%").onclick = async function () {
+document.getElementById("move-left-25percent").onclick = async function () {
     await updateZoom();
     await updatePrecision();
     document.getElementById("origin-x-coord").value = (Number(document.getElementById("origin-x-coord").value) - 0.25 * (defaultWidth) * (1 / zoom)).toFixed(precision);
 };
 
-document.getElementById("move-right-10%").onclick = async function () {
+document.getElementById("move-right-10percent").onclick = async function () {
     await updateZoom();
     await updatePrecision();
     document.getElementById("origin-x-coord").value = (Number(document.getElementById("origin-x-coord").value) + 0.10 * (defaultWidth) * (1 / zoom)).toFixed(precision);
 };
 
-document.getElementById("move-right-25%").onclick = async function () {
+document.getElementById("move-right-25percent").onclick = async function () {
     await updateZoom();
     await updatePrecision();
     document.getElementById("origin-x-coord").value = (Number(document.getElementById("origin-x-coord").value) + 0.25 * (defaultWidth) * (1 / zoom)).toFixed(precision);
 };
 
-document.getElementById("move-down-10%").onclick = async function () {
+document.getElementById("move-down-10percent").onclick = async function () {
     await updateZoom();
     await updatePrecision();
     document.getElementById("origin-y-coord").value = (Number(document.getElementById("origin-y-coord").value) - 0.10 * (defaultHeight) * (1 / zoom)).toFixed(precision);
 };
 
-document.getElementById("move-down-25%").onclick = async function () {
+document.getElementById("move-down-25percent").onclick = async function () {
     await updateZoom();
     await updatePrecision();
     document.getElementById("origin-y-coord").value = (Number(document.getElementById("origin-y-coord").value) - 0.25 * (defaultHeight) * (1 / zoom)).toPrecision(precision);
 };
-
-document.getElementById("move-up-10%").onclick = async function () {
+document.getElementById("move-up-10percent").onclick = async function () {
     await updateZoom();
     await updatePrecision();
     document.getElementById("origin-y-coord").value = (Number(document.getElementById("origin-y-coord").value) + 0.10 * (defaultHeight) * (1 / zoom)).toPrecision(precision);
 };
-
-document.getElementById("move-up-25%").onclick = async function () {
+document.getElementById("move-up-25percent").onclick = async function () {
     await updateZoom();
     await updatePrecision();
     document.getElementById("origin-y-coord").value = (Number(document.getElementById("origin-y-coord").value) + 0.25 * (defaultHeight) * (1 / zoom)).toPrecision(precision);
 };
-
 document.getElementById("zoom-out-5x").onclick = async function () {
     await updateZoom();
     await updatePrecision();
     document.getElementById("zoom").value = Number(document.getElementById("zoom").value) / 5;
 };
-
 document.getElementById("zoom-out-2x").onclick = async function () {
     await updateZoom();
     await updatePrecision();
     document.getElementById("zoom").value = Number(document.getElementById("zoom").value) / 2;
 };
-
 document.getElementById("zoom-in-2x").onclick = async function () {
     await updateZoom();
     await updatePrecision();
     document.getElementById("zoom").value = Number(document.getElementById("zoom").value) * 2;
 };
-
 document.getElementById("zoom-in-5x").onclick = async function () {
     await updateZoom();
     await updatePrecision();
     document.getElementById("zoom").value = Number(document.getElementById("zoom").value) * 5;
 };
+document.getElementById("zoom").onchange = async function () {
+    await updateZoom();
+    await updatePrecision();
+}
 
 // MODAL VISIBILITY
 document.getElementById("hide-settings").onclick = function () {
@@ -126,11 +127,78 @@ document.getElementById("hide-settings").onclick = function () {
     toggleDiv("show-settings");
     toggleDiv("settings");
 }
-
 document.getElementById("show-settings").onclick = function () {
     toggleDiv("show-settings");
     toggleDiv("hide-settings");
     toggleDiv("settings");
+}
+
+// FULL SCREEN FUNCTIONALITY
+document.getElementById("full-screen-on-desktop").onclick = function () {
+    toggleDiv("full-screen-on-desktop");
+    toggleDiv("full-screen-off-desktop");
+    toggleDiv("full-screen-on-mobile");
+    toggleDiv("full-screen-off-mobile");
+    fullScreen = false;
+}
+document.getElementById("full-screen-on-mobile").onclick = function () {
+    toggleDiv("full-screen-on-desktop");
+    toggleDiv("full-screen-off-desktop");
+    toggleDiv("full-screen-on-mobile");
+    toggleDiv("full-screen-off-mobile");
+    fullScreen = false;
+}
+document.getElementById("full-screen-off-desktop").onclick = function () {
+    toggleDiv("full-screen-on-desktop");
+    toggleDiv("full-screen-off-desktop");
+    toggleDiv("full-screen-on-mobile");
+    toggleDiv("full-screen-off-mobile");
+    fullScreen = true;
+}
+document.getElementById("full-screen-off-mobile").onclick = function () {
+    toggleDiv("full-screen-on-desktop");
+    toggleDiv("full-screen-off-desktop");
+    toggleDiv("full-screen-on-mobile");
+    toggleDiv("full-screen-off-mobile");
+    fullScreen = true;
+}
+
+// AUTO CALCULATE ITERATION DEPTH FUNCTIONALITY
+document.getElementById("auto-calculate-iteration-depth-on-desktop").onclick = function () {
+    toggleDiv("auto-calculate-iteration-depth-off-desktop");
+    toggleDiv("auto-calculate-iteration-depth-on-desktop");
+    toggleDiv("auto-calculate-iteration-depth-on-mobile");
+    toggleDiv("auto-calculate-iteration-depth-off-mobile");
+    toggleDiv("target-iterations-title");
+    toggleDiv("target-iterations");
+    autoCalculateMaxIterations = false;
+}
+document.getElementById("auto-calculate-iteration-depth-on-mobile").onclick = function () {
+    toggleDiv("auto-calculate-iteration-depth-off-desktop");
+    toggleDiv("auto-calculate-iteration-depth-on-desktop");
+    toggleDiv("auto-calculate-iteration-depth-on-mobile");
+    toggleDiv("auto-calculate-iteration-depth-off-mobile");
+    toggleDiv("target-iterations-title");
+    toggleDiv("target-iterations");
+    autoCalculateMaxIterations = false;
+}
+document.getElementById("auto-calculate-iteration-depth-off-desktop").onclick = function () {
+    toggleDiv("auto-calculate-iteration-depth-off-desktop");
+    toggleDiv("auto-calculate-iteration-depth-on-desktop");
+    toggleDiv("auto-calculate-iteration-depth-on-mobile");
+    toggleDiv("auto-calculate-iteration-depth-off-mobile");
+    toggleDiv("target-iterations-title");
+    toggleDiv("target-iterations");
+    autoCalculateMaxIterations = true;
+}
+document.getElementById("auto-calculate-iteration-depth-off-mobile").onclick = function () {
+    toggleDiv("auto-calculate-iteration-depth-off-desktop");
+    toggleDiv("auto-calculate-iteration-depth-on-desktop");
+    toggleDiv("auto-calculate-iteration-depth-on-mobile");
+    toggleDiv("auto-calculate-iteration-depth-off-mobile");
+    toggleDiv("target-iterations-title");
+    toggleDiv("target-iterations");
+    autoCalculateMaxIterations = true;
 }
 
 // RENDER FUNCTIONS
@@ -173,10 +241,9 @@ function drawIntervalFrame(xOrigin, yOrigin, zoom, maxIterations) {
                 // 360 = max hue value
                 // maxHue + minHue <= 360
                 // the closer the max and min hues are, the less color variation there will be
-
                 let maxHue = 360;
-                let minHue = 360;
-                let colorHue = parseInt(20 + Math.round(360 * pointBelongs / maxIterations));
+                let minHue = 20;
+                let colorHue = parseInt(minHue + Math.round(maxHue * pointBelongs / maxIterations));
                 var color = `hsl(${colorHue}, 100%, 50%`;
                 fillPixel(x, y, color);
             }
@@ -188,31 +255,32 @@ function drawIntervalFrame(xOrigin, yOrigin, zoom, maxIterations) {
 
 // HELPER FUNCTIONS
 async function updateRenderSettings() {
-    await updateTargetIterations();
+    await updateZoom();
+    await updateIterationDepth();
     await updateRenderSpeed();
     await updateOrigin();
-    await updateZoom();
 };
 
 // Updates iterations array based on target iterations and render speed
 async function updateIterations() {
-    console.log('Target Iterations', targetIterations);
+    console.log('Target Iterations', iterationDepth);
     console.log('Render Speed', renderSpeed);
 
     iterations.length = 0;
-    while (targetIterations > 5) {
-        await iterations.unshift(parseInt(targetIterations));
-        targetIterations /= renderSpeed;
+    while (iterationDepth > 5) {
+        await iterations.unshift(parseInt(iterationDepth));
+        iterationDepth /= renderSpeed;
     }
 
     if (iterations.length == 0) {
-        iterations.push(parseInt(targetIterations));
+        iterations.push(parseInt(iterationDepth));
     }
 };
 
 // Render Depth
-function updateTargetIterations() {
-    targetIterations = Number(document.getElementById("target-iterations").value);
+function updateIterationDepth() {
+    console.log('Auto calculate render depth:', autoCalculateMaxIterations);
+    iterationDepth = autoCalculateMaxIterations ? 100 + zoom : Number(document.getElementById("target-iterations").value);
 };
 
 function updateRenderSpeed() {
@@ -239,17 +307,27 @@ function updatePrecision() {
 };
 
 function updateCanvasSize() {
-    // updates canvas size based on available window space
-    // mandelbrot set is 2:3 (height:width)
     let screenHeightToWidthRatio = window.innerHeight / window.innerWidth;
-    if (screenHeightToWidthRatio < (2 / 3)) {
-        canvas.height = window.innerHeight;
-        canvas.width = window.innerHeight * (3 / 2);
-    } else {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerWidth * (2 / 3);
-    }
 
+    if (fullScreen) {
+        if (screenHeightToWidthRatio > (2 / 3)) {
+            canvas.height = window.innerHeight;
+            canvas.width = window.innerHeight * (3 / 2);
+        } else {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerWidth * (2 / 3);
+        }
+    } else {
+        // updates canvas size based on available window space
+        // mandelbrot set is 2:3 (height:width)
+        if (screenHeightToWidthRatio < (2 / 3)) {
+            canvas.height = window.innerHeight;
+            canvas.width = window.innerHeight * (3 / 2);
+        } else {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerWidth * (2 / 3);
+        }
+    }
     // cuts the resolution by half because computer performance sucks
     // canvas.width /= 2;
     // canvas.height /= 2;
@@ -266,7 +344,6 @@ function toggleDiv(id) {
     var div = document.getElementById(id);
     div.style.display = div.style.display == "none" ? "block" : "none";
 }
-
 
 ///// grid stuff
 
