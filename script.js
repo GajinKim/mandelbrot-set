@@ -51,13 +51,13 @@ document.getElementById("render-mandelbrot").onclick = async function () {
 document.getElementById("move-left-10%").onclick = async function () {
     await updateZoom();
     await updatePrecision();
-    document.getElementById("origin-x-coord").value = (Number(document.getElementById("origin-x-coord").value) - 0.10 * (defaultWidth) * (1 / zoom)).toFixed(zoom);
+    document.getElementById("origin-x-coord").value = (Number(document.getElementById("origin-x-coord").value) - 0.10 * (defaultWidth) * (1 / zoom)).toFixed(precision);
 };
 
 document.getElementById("move-left-25%").onclick = async function () {
     await updateZoom();
     await updatePrecision();
-    document.getElementById("origin-x-coord").value = (Number(document.getElementById("origin-x-coord").value) - 0.25 * (defaultWidth) * (1 / zoom)).toFixed(zoom);
+    document.getElementById("origin-x-coord").value = (Number(document.getElementById("origin-x-coord").value) - 0.25 * (defaultWidth) * (1 / zoom)).toFixed(precision);
 };
 
 document.getElementById("move-right-10%").onclick = async function () {
