@@ -9,6 +9,10 @@ body {
     width: 100vw;
 }
 
+label {
+    color: white;
+}
+
 #mandelbrot-canvas {
     /* center horizontally and vertically */
     margin: 0;
@@ -23,19 +27,36 @@ body {
     z-index: -1;
 }
 
-#modal {
-    padding: 5px;
-    width: 30%;
-    min-width: 120px;
-    max-width: 350px;
-    justify-content: center;
+/* large devices > 576 */
+@media (min-width: 577px) {
+    #modal {
+        width: 576px;
+        justify-content: center;
+    }
+
+    #modal-content {
+        background-color: rgba(0, 32, 105, 0.3);
+        justify-content: center;
+        width: 100%;
+        border-radius: 5px;
+        margin: 1%;
+    }
 }
 
-#modal-content {
-    background-color: rgba(21, 99, 216, 0.5);
-    justify-content: center;
-    width: 100%;
-    border-radius: 5px;
+/* small devices -<=576 */
+@media (max-width: 576px) {
+    #modal {
+        width: 100%;
+        justify-content: center;
+    }
+
+    #modal-content {
+        background-color: rgba(0, 32, 105, 0.3);
+        justify-content: center;
+        width: 100%;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
 }
 
 .boundary-input {
@@ -67,14 +88,16 @@ button[id="full-screen-on-desktop"],
 button[id="full-screen-off-desktop"],
 button[id="auto-calculate-iteration-depth-on-desktop"],
 button[id="auto-calculate-iteration-depth-off-desktop"] {
-    width: 50%;
-    min-width: 90px;
+    width: 280px !important;
 }
 
 /* input field aggreagte */
 .form-control,
-.btn-primary,
-.btn-success,
+button[id="show-settings-mobile"],
+button[id="hide-settings-mobile"],
+button[id="show-settings-desktop"],
+button[id="hide-settings-desktop"],
+button[id="render-mandelbrot"],
 button[id="full-screen-on-mobile"],
 button[id="full-screen-off-mobile"],
 button[id="auto-calculate-iteration-depth-on-mobile"],

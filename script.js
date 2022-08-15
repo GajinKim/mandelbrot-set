@@ -122,44 +122,62 @@ document.getElementById("zoom").onchange = async function () {
 }
 
 // MODAL VISIBILITY
-document.getElementById("hide-settings").onclick = function () {
-    toggleDiv("hide-settings");
-    toggleDiv("show-settings");
+document.getElementById("hide-settings-mobile").onclick = function () {
+    toggleDiv("hide-settings-mobile");
+    toggleDiv("show-settings-mobile");
+    toggleDiv("show-settings-desktop");
+    toggleDiv("hide-settings-desktop");
     toggleDiv("settings");
 }
-document.getElementById("show-settings").onclick = function () {
-    toggleDiv("show-settings");
-    toggleDiv("hide-settings");
+document.getElementById("show-settings-mobile").onclick = function () {
+    toggleDiv("show-settings-mobile");
+    toggleDiv("hide-settings-mobile");
+    toggleDiv("show-settings-desktop");
+    toggleDiv("hide-settings-desktop");
+    toggleDiv("settings");
+}
+document.getElementById("hide-settings-desktop").onclick = function () {
+    toggleDiv("hide-settings-mobile");
+    toggleDiv("show-settings-mobile");
+    toggleDiv("show-settings-desktop");
+    toggleDiv("hide-settings-desktop");
+    toggleDiv("settings");
+}
+document.getElementById("show-settings-desktop").onclick = function () {
+    toggleDiv("show-settings-mobile");
+    toggleDiv("hide-settings-mobile");
+    toggleDiv("show-settings-desktop");
+    toggleDiv("hide-settings-desktop");
     toggleDiv("settings");
 }
 
 // FULL SCREEN FUNCTIONALITY
 document.getElementById("full-screen-on-desktop").onclick = function () {
-    toggleDiv("full-screen-on-desktop");
-    toggleDiv("full-screen-off-desktop");
     toggleDiv("full-screen-on-mobile");
     toggleDiv("full-screen-off-mobile");
+    toggleDiv("full-screen-on-desktop");
+    toggleDiv("full-screen-off-desktop");
     fullScreen = false;
 }
 document.getElementById("full-screen-on-mobile").onclick = function () {
-    toggleDiv("full-screen-on-desktop");
-    toggleDiv("full-screen-off-desktop");
     toggleDiv("full-screen-on-mobile");
     toggleDiv("full-screen-off-mobile");
+    toggleDiv("full-screen-on-desktop");
+    toggleDiv("full-screen-off-desktop");
     fullScreen = false;
 }
 document.getElementById("full-screen-off-desktop").onclick = function () {
-    toggleDiv("full-screen-on-desktop");
-    toggleDiv("full-screen-off-desktop");
     toggleDiv("full-screen-on-mobile");
     toggleDiv("full-screen-off-mobile");
+    toggleDiv("full-screen-on-desktop");
+    toggleDiv("full-screen-off-desktop");
     fullScreen = true;
 }
 document.getElementById("full-screen-off-mobile").onclick = function () {
-    toggleDiv("full-screen-on-desktop");
-    toggleDiv("full-screen-off-desktop");
     toggleDiv("full-screen-on-mobile");
     toggleDiv("full-screen-off-mobile");
+    toggleDiv("full-screen-on-desktop");
+    toggleDiv("full-screen-off-desktop");
     fullScreen = true;
 }
 
