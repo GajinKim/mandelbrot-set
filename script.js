@@ -280,7 +280,7 @@ async function updateIterations() {
 // Render Depth
 function updateIterationDepth() {
     console.log('Auto calculate render depth:', autoCalculateMaxIterations);
-    iterationDepth = autoCalculateMaxIterations ? 100 + zoom : Number(document.getElementById("target-iterations").value);
+    iterationDepth = autoCalculateMaxIterations ? (100 + 2 * zoom) : Number(document.getElementById("target-iterations").value);
 };
 
 function updateRenderSpeed() {
