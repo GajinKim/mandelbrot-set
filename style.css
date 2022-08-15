@@ -26,6 +26,7 @@ body {
 #modal {
     padding: 5px;
     width: 30%;
+    min-width: 120px;
     max-width: 350px;
     justify-content: center;
 }
@@ -41,13 +42,18 @@ body {
     display: inline-block;
 }
 
-/* helper button aggregate */
-.btn-secondary {
+#render-speed, #target-iterations {
+    width: 100% !important;
+    min-width: 90px !important;
+}
+
+button[class="btn btn-secondary m-1"] {
     width: 40px;
 }
 
 /* input field aggreagte */
-.form-control, .btn-primary {
+.form-control,
+.btn-primary {
     width: 100%;
     min-width: 90px;
 }
